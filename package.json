@@ -1,0 +1,13 @@
+{
+  "name": "camera-watch",
+  "private": true,
+  "version": "4.2.1",
+  "scripts": { "start": "node camera-server.js", "test": "node --test watch-logic.test.mjs enrollment.test.mjs" },
+  "description": "本机摄像头正面人脸监控与 Windows 通知",
+  "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.35",
+    "@tensorflow/tfjs": "^1.7.4",
+    "face-api.js": "^0.22.2",
+    "node-notifier": "^10.0.1"
+  }
+}

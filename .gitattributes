@@ -1,0 +1,10 @@
+* text=auto
+*.png binary
+*.ico binary
+*.exe binary
+*.tflite binary
+*-shard* binary
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.iss text eol=crlf
+packaging/licenses/* -text -whitespace

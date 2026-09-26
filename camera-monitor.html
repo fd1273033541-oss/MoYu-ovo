@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>耍起 V1.0</title>
+  <link rel="icon" href="./shuaiqi.ico">
+  <link rel="stylesheet" href="./camera-monitor.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="kicker">SHUAIQI</p>
+        <h1>耍起 V1.0</h1>
+        <p class="subtitle">检测人员进入、移动与停留，识别机主后排除提醒。</p>
+      </div>
+      <span class="status-pill" id="statusPill"><i></i><span id="statusText">未启动</span></span>
+    </header>
+
+    <section class="camera-panel">
+      <div class="preview-wrap">
+        <video id="camera" autoplay playsinline muted></video>
+        <div class="empty-state" id="emptyState">
+          <span class="camera-icon">◉</span>
+          <strong>摄像头尚未启动</strong>
+          <span>点击下方按钮开始监控</span>
+        </div>
+        <div class="scan-line" id="scanLine"></div>
+        <span class="face-badge" id="faceBadge">检测到有人脸</span>
+      </div>
+      <div class="camera-footer">
+        <span id="cameraInfo">等待摄像头权限</span>
+        <span id="faceInfo">尚未检测</span>
+      </div>
+    </section>
+
+    <section class="control-panel">
+      <h2>机主排除</h2>
+      <p id="ownerStatus" class="notice">未登记</p>
+      <p id="ownerHint" class="notice" role="status">先点击“录入机主特征”，采集 3 次并确认保存，然后开始监控。</p>
+      <p class="notice">仅在此浏览器保存面容特征，不保存照片。背对镜头或面容不清晰时无法确认机主，仍可能提醒。</p>
+      <div class="control-row">
+        <button class="primary" id="recordOwnerBtn">录入机主特征</button>
+        <button class="secondary" id="enrollBtn" disabled>采集机主样本（共 3 次）</button>
+        <button class="primary" id="confirmOwnerBtn" disabled>确认保存</button>
+        <button class="secondary" id="cancelOwnerBtn" disabled>取消录入</button>
+        <button class="secondary" id="clearOwnerBtn" disabled>删除机主</button>
+      </div>
+    </section>
+    <section class="control-panel">
+      <div class="control-row">
+        <button class="primary" id="startBtn">开始监控</button>
+        <button class="secondary" id="stopBtn" disabled>停止</button>
+        <button class="secondary" id="testNotificationBtn">测试通知</button>
+      </div>
+      <label class="toggle-row">
+        <span>
+          <strong>重复提醒</strong>
+          <small>人员持续出现时，按冷却时间再次提醒</small>
+        </span>
+        <input type="checkbox" id="repeatToggle">
+        <span class="switch"></span>
+      </label>
+      <label class="cooldown-row" id="cooldownRow">
+        <span>提醒间隔</span>
+        <select id="cooldownSelect">
+          <option value="10">10 秒</option>
+          <option value="15" selected>15 秒</option>
+          <option value="30">30 秒</option>
+          <option value="60">1 分钟</option>
+          <option value="300">5 分钟</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="soundToggle"> 短提示音（启动前勾选）</label>
+      <p class="notice" id="notice" role="status">机主录入期间不监控、不自动提醒。确认保存后手动开始监控。</p>
+      <p class="notice">摄像头需覆盖座位后方。保持页面运行；后台标签页可能被浏览器降速，最小化不保证实时提醒。</p>
+    </section>
+
+    <section class="event-panel">
+      <div class="section-head"><h2>监控记录</h2><button class="link-button" id="clearBtn">清空</button></div>
+      <div class="events" id="events"><p class="event-empty">开始监控后，检测记录会显示在这里。</p></div>
+    </section>
+  </main>
+  <script src="/node_modules/face-api.js/dist/face-api.min.js"></script>
+  <script type="module" src="./camera-monitor.js"></script>
+</body>
+</html>
